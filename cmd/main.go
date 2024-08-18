@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strings"
 
 	"github.com/nagisa599/nislab_chatBot/constants"
 	"github.com/nagisa599/nislab_chatBot/utils"
@@ -19,7 +20,7 @@ type ChunkSim struct {
 }
 func main() {
 	client := openai.NewClient(os.Getenv("OPENAIAPIKEY"))
-	question := "研究室はどこにある？"
+	question := "現在のB4のメンバー教えて？"
 	fmt.Print("質問: ", question, "\n")
 	chunkSize := 400
 	overlap := 50
@@ -75,6 +76,11 @@ func main() {
 		fmt.Println("Error:", err)
 		return
 	}
-	// レスポンス出力
-	fmt.Println("GPTの回答", gptChatResponse.Choices[0].Text)
+	// レスポンスのテキストを取得し、改行をスペースに置換して余分な空白を削除
+	responseText := gptChatResponse.Choices[0].Text
+	responseText = strings.ReplaceAll(responseText, "\n", " ") // 改行をスペースに置き換え
+	responseText = strings.Join(strings.Fields(responseText), " ") // 余分なスペースを削除
+
+	fmt.Println("GPTの回答:", responseText)
+
 }

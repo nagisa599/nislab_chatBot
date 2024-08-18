@@ -1,7 +1,7 @@
 services:
   backend:
     build: .
-    container_name: grahql-backend
+    container_name: nislab-GPT
     volumes:
       - ../:/go/src/
     env_file:
