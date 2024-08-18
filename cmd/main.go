@@ -19,7 +19,8 @@ type ChunkSim struct {
 }
 func main() {
 	client := openai.NewClient(os.Getenv("OPENAIAPIKEY"))
-	question := "B4のメンバーは？"
+	question := "研究室はどこにある？"
+	fmt.Print("質問: ", question, "\n")
 	chunkSize := 400
 	overlap := 50
 	consolidatedText, err := utils.FetchAndProcessMultipleURLs(constants.Urls)
@@ -55,16 +56,6 @@ func main() {
 	sort.Slice(similarities, func(i, j int) bool {
 		return similarities[i].Similarity > similarities[j].Similarity
 	})
-
-	// if len(similarities) > 0 {
-	// 	fmt.Println("Top similar chunks:")
-	// 	for i := 0; i < 2 && i < len(similarities); i++ {
-	// 		fmt.Printf("Chunk %d: %s, Similarity: %.4f\n", similarities[i].Index+1, chunks[similarities[i].Index], similarities[i].Similarity)
-	// 	}
-	// } else {
-	// 	fmt.Println("No valid similarities found.")
-	// 	return
-	// }
 	prompt := fmt.Sprintf(`以下の質問に以下の情報をベースにして回答してください。
 	[ユーザの情報]
 	%s
