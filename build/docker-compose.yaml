@@ -1,0 +1,10 @@
+services:
+  backend:
+    build: .
+    container_name: grahql-backend
+    volumes:
+      - ../:/go/src/
+    env_file:
+      - .env
+    ports:
+      - 3001:3001

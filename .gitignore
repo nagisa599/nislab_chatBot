@@ -1,0 +1,5 @@
+# air logs
+tmp
+
+# env
+build/.env
