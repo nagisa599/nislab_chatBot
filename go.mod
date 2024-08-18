@@ -1,4 +1,4 @@
-module github.com/nagisa599/RAG-Study
+module github.com/nagisa599/nislab_chatBot
 
 go 1.22.4
 

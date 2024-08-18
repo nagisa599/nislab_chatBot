@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/nagisa599/RAG-Study/utils"
+	"github.com/nagisa599/nislab_chatBot/utils"
 	"github.com/sashabaranov/go-openai"
 )
 
