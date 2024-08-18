@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strings"
 
 	"github.com/nagisa599/nislab_chatBot/constants"
 	"github.com/nagisa599/nislab_chatBot/utils"
@@ -19,7 +20,8 @@ type ChunkSim struct {
 }
 func main() {
 	client := openai.NewClient(os.Getenv("OPENAIAPIKEY"))
-	question := "B4のメンバーは？"
+	question := "現在のB4のメンバー教えて？"
+	fmt.Print("質問: ", question, "\n")
 	chunkSize := 400
 	overlap := 50
 	consolidatedText, err := utils.FetchAndProcessMultipleURLs(constants.Urls)
@@ -55,16 +57,6 @@ func main() {
 	sort.Slice(similarities, func(i, j int) bool {
 		return similarities[i].Similarity > similarities[j].Similarity
 	})
-
-	// if len(similarities) > 0 {
-	// 	fmt.Println("Top similar chunks:")
-	// 	for i := 0; i < 2 && i < len(similarities); i++ {
-	// 		fmt.Printf("Chunk %d: %s, Similarity: %.4f\n", similarities[i].Index+1, chunks[similarities[i].Index], similarities[i].Similarity)
-	// 	}
-	// } else {
-	// 	fmt.Println("No valid similarities found.")
-	// 	return
-	// }
 	prompt := fmt.Sprintf(`以下の質問に以下の情報をベースにして回答してください。
 	[ユーザの情報]
 	%s
@@ -84,6 +76,11 @@ func main() {
 		fmt.Println("Error:", err)
 		return
 	}
-	// レスポンス出力
-	fmt.Println("GPTの回答", gptChatResponse.Choices[0].Text)
+	// レスポンスのテキストを取得し、改行をスペースに置換して余分な空白を削除
+	responseText := gptChatResponse.Choices[0].Text
+	responseText = strings.ReplaceAll(responseText, "\n", " ") // 改行をスペースに置き換え
+	responseText = strings.Join(strings.Fields(responseText), " ") // 余分なスペースを削除
+
+	fmt.Println("GPTの回答:", responseText)
+
 }
