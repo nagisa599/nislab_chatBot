@@ -1,9 +1,9 @@
-make build-local:
+build-local:
 	cd ./build && docker compose build --no-cache
 
-make up-local:
+up-local:
 	cd ./build && docker compose up
 
-make backend:
+backend:
 	cd ./build && docker compose exec backend bash
 
