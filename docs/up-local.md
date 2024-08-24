@@ -28,6 +28,10 @@ make up-local
 
 [url.go を編集](../constants/url.go)
 
+
+https://github.com/nagisa599/nislab_chatBot/blob/891fa72aea91e894628e09266ca325098aa8a2ad/constants/url.go#L1-L7
 ### 質問を記述
 
 [main.go を編入](../cmd/main.go)
+
+https://github.com/nagisa599/nislab_chatBot/blob/891fa72aea91e894628e09266ca325098aa8a2ad/cmd/main.go#L21-L27
